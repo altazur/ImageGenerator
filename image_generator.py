@@ -5,6 +5,7 @@ input_mpx = int(input("Enter generated mpx: "))
 def ImageSize(n):
     p = n
     for x in range(0,n):
+        print('*')
         p = p-1
         if ((p*p) == n):
             return (p*1000,p*1000)
