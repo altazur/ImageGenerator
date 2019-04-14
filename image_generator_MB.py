@@ -1,7 +1,6 @@
 from PIL import Image
 
-#input_mb = int(input("Enter generated MB (only even numbers)\n*Not even numbers results in -1 MB: "))
-input_mb = 32
+input_mb = int(input("Enter generated MB: "))
 
 #Because 1mpx of RGBA white image without compression is 4 MB file size
 #Method GetImageSize check whether the input is the exponent of 4
