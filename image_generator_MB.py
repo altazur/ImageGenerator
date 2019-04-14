@@ -1,24 +1,25 @@
 from PIL import Image
 
-input_mb = int(input("Enter generated MB (only even numbers)\n*Not even numbers results in -1 MB: "))
+#input_mb = int(input("Enter generated MB (only even numbers)\n*Not even numbers results in -1 MB: "))
+input_mb = 32
 
-def MbToMpx(n):
-    if (n%2==0): return n/2
-    return int(n/2)
+#Because 1mpx of RGBA white image without compression is 4 MB file size
+#Method GetImageSize check whether the input is the exponent of 4
+# if it is the method returnes the tuple of 1000px*exponent X 1000px*exponent
+#If no method returnes image which has 500px X (output*500)px file size which is usable when output can't be divided by 4 or at least 2
+#THe algorithm should be improved by finding the way to create the more than 500 px side images for non exponents of 4 sizes
+def GetImageSize(mb):
+	tmp = 1
+	count = 0
+	while tmp < mb:
+		print(tmp)
+		print(count)
+		tmp *= 4
+		count += 1;
+	if (tmp == mb):
+		return (1000*count,1000*count)
+	return (500,mb*500)
 
-def ImageSize(n):
-    p = n
-    for x in range(0,n):
-        print('*')
-        p = p-1
-        if ((p*p) == n):
-            return (p*1000,p*1000)
-            break
-        elif (p==1):
-            return (3000, n*1000000/3000)
-
-#2 MB = 1 MPX here
-# or 1 MB = 0,5 MPX
-#i hope
-im = Image.new("I", ImageSize(MbToMpx(input_mb)), 0)
+#0,25 mpx (or 500x500 px) is 1 MB!
+im = Image.new("RGBA", GetImageSize(input_mb),color="white")
 im.save("image"+str(input_mb)+"mb.png", dpi=(300,300), compress_level=0)
